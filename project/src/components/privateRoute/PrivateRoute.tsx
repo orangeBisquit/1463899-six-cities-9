@@ -1,11 +1,8 @@
 import {Navigate} from 'react-router-dom';
 import {AppRoute} from '../../utils/const';
 
-
-type IsAuthorized = boolean;
-
 type PrivateRouteProps = {
-  isAuthorized?: IsAuthorized;
+  isAuthorized?: boolean;
   children: JSX.Element;
 };
 
@@ -14,4 +11,3 @@ function PrivateRoute({isAuthorized = false, children}: PrivateRouteProps) {
 }
 
 export default PrivateRoute;
-

@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/app/app';
+import {offers} from './mocks/offers';
 
 const StartSettings = {
   offersCounts: 420,
@@ -8,6 +9,6 @@ const StartSettings = {
 
 ReactDOM.render(
   <React.StrictMode>
-    <App offersCount={StartSettings.offersCounts}/>
+    <App offersCount={StartSettings.offersCounts} offers={offers}/>
   </React.StrictMode>,
   document.getElementById('root'));

@@ -1,53 +1,21 @@
-import Header from '../../Header/Header';
-import Card from '../../Card/Card';
 import React from 'react';
+import Header from '../../components/header/Header';
+import Tabs from '../../components/tabs/Tabs';
+import Card from '../../components/card/Card';
+import {Offers} from '../../types/offers';
 
 type MainPageProps = {
   offersCount: number;
+  offers: Offers;
 }
 
-function MainPageFull({offersCount}: MainPageProps) {
+function MainPage({offersCount, offers}: MainPageProps) {
   return (
     <div className="page page--gray page--main">
       <Header/>
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
-        <div className="tabs">
-          <section className="locations container">
-            <ul className="locations__list tabs__list">
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Paris</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Cologne</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Brussels</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item tabs__item--active">
-                  <span>Amsterdam</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Hamburg</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Dusseldorf</span>
-                </a>
-              </li>
-            </ul>
-          </section>
-        </div>
+        <Tabs/>
         <div className="cities">
           <div className="cities__places-container container">
             <section className="cities__places places">
@@ -69,6 +37,10 @@ function MainPageFull({offersCount}: MainPageProps) {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
+                {offers.map((offer) => {
+                  // eslint-disable-next-line no-console
+                  console.log(offer);
+                })}
                 <Card/>
                 <Card/>
                 <Card/>
@@ -86,4 +58,5 @@ function MainPageFull({offersCount}: MainPageProps) {
   );
 }
 
-export default MainPageFull;
+
+export default MainPage;
