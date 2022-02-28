@@ -1,12 +1,12 @@
 import React from 'react';
 import Header from '../../components/header/Header';
 import Tabs from '../../components/tabs/Tabs';
-import Card from '../../components/card/Card';
-import {Offers} from '../../types/offers';
+import {Offer} from '../../types/offers';
+import OffersList from '../../components/offersList/OffersList';
 
 type MainPageProps = {
   offersCount: number;
-  offers: Offers;
+  offers: Offer[];
 }
 
 function MainPage({offersCount, offers}: MainPageProps) {
@@ -37,15 +37,7 @@ function MainPage({offersCount, offers}: MainPageProps) {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                {offers.map((offer) => {
-                  // eslint-disable-next-line no-console
-                  console.log(offer);
-                })}
-                <Card/>
-                <Card/>
-                <Card/>
-                <Card/>
-                <Card/>
+                <OffersList offers={offers}/>
               </div>
             </section>
             <div className="cities__right-section">

@@ -6,11 +6,11 @@ import Favorites from '../../pages/favorites/Favorites';
 import NotFound from '../../pages/notFound/NotFound';
 import PrivateRoute from '../privateRoute/PrivateRoute';
 import {AppRoute} from '../../utils/const';
-import {Offers} from '../../types/offers';
+import {Offer} from '../../types/offers';
 
 type AppProps = {
   offersCount: number;
-  offers: Offers;
+  offers: Offer[];
 }
 
 function App({offersCount, offers}: AppProps): JSX.Element {
@@ -19,7 +19,7 @@ function App({offersCount, offers}: AppProps): JSX.Element {
       <Routes>
         <Route index element={<MainPage offersCount={offersCount} offers={offers}/>}/>
         <Route path={AppRoute.Login} element={<Login/>}/>
-        <Route path={AppRoute.Favorites} element={<Favorites/>}/>
+        <Route path={AppRoute.Favorites} element={<Favorites offers={offers}/>}/>
         <Route path={AppRoute.Offer} element={
           <PrivateRoute isAuthorized>
             <Property/>
