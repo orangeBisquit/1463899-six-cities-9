@@ -7,22 +7,23 @@ import NotFound from '../../pages/notFound/NotFound';
 import PrivateRoute from '../privateRoute/PrivateRoute';
 import {AppRoute} from '../../utils/const';
 import {Offer} from '../../types/offers';
+import {Review} from '../../types/reviews';
 
 type AppProps = {
-  offersCount: number;
   offers: Offer[];
+  reviews: Review[];
 }
 
-function App({offersCount, offers}: AppProps): JSX.Element {
+function App({offers, reviews}: AppProps): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
-        <Route index element={<MainPage offersCount={offersCount} offers={offers}/>}/>
+        <Route index element={<MainPage offers={offers}/>}/>
         <Route path={AppRoute.Login} element={<Login/>}/>
         <Route path={AppRoute.Favorites} element={<Favorites offers={offers}/>}/>
         <Route path={AppRoute.Offer} element={
-          <PrivateRoute isAuthorized>
-            <Property/>
+          <PrivateRoute>
+            <Property offers={offers} reviews={reviews}/>
           </PrivateRoute>
         }
         >

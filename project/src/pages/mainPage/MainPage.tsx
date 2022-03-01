@@ -1,15 +1,18 @@
 import React from 'react';
+import {Offer} from '../../types/offers';
 import Header from '../../components/header/Header';
 import Tabs from '../../components/tabs/Tabs';
-import {Offer} from '../../types/offers';
 import OffersList from '../../components/offersList/OffersList';
+import MainPageEmpty from './MainPageEmpty/MainPageEmpty';
 
 type MainPageProps = {
-  offersCount: number;
   offers: Offer[];
 }
 
-function MainPage({offersCount, offers}: MainPageProps) {
+function MainPage({offers}: MainPageProps) {
+  if (!offers || offers.length <= 0) {
+    return <MainPageEmpty/>;
+  }
   return (
     <div className="page page--gray page--main">
       <Header/>
@@ -20,7 +23,7 @@ function MainPage({offersCount, offers}: MainPageProps) {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{offersCount} places to stay in Amsterdam</b>
+              <b className="places__found">{offers.length} places to stay in Amsterdam</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex={0}>
@@ -29,7 +32,7 @@ function MainPage({offersCount, offers}: MainPageProps) {
                     <use xlinkHref="#icon-arrow-select"></use>
                   </svg>
                 </span>
-                <ul className="places__options places__options--custom places__options--opened">
+                <ul className="places__options places__options--custom"> {/*places__options--opened*/}
                   <li className="places__option places__option--active" tabIndex={0}>Popular</li>
                   <li className="places__option" tabIndex={0}>Price: low to high</li>
                   <li className="places__option" tabIndex={0}>Price: high to low</li>

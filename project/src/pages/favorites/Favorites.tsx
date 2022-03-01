@@ -2,6 +2,7 @@ import {Offer} from '../../types/offers';
 import Header from '../../components/header/Header';
 import Footer from '../../components/footer/Footer';
 import FavoritesList from '../../components/favoritesList/FavoritesList';
+import FavoritesEmpty from './FavoritesEmpty/FavoritesEmpty';
 
 /*import FavoritesEmpty from './FavoritesEmpty/FavoritesEmpty';*/
 
@@ -10,6 +11,10 @@ type FavoritesProps = {
 }
 
 function Favorites({offers}: FavoritesProps) {
+
+  if (!offers || offers.length <= 0) {
+    return <FavoritesEmpty/>;
+  }
 
 
   const getUniqueCities = (offers: Offer[]) => {
