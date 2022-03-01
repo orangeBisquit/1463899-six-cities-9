@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom';
 
 type CardProps = {
   offer: Offer;
-  onCardHover: Function;
+  onCardHover: any;
 }
 
 function OfferCard({offer, onCardHover}: CardProps) {
