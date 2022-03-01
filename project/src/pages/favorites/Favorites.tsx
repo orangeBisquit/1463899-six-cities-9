@@ -12,7 +12,7 @@ type FavoritesProps = {
 
 function Favorites({offers}: FavoritesProps) {
 
-  if (!offers || offers.length <= 0) {
+  if (!offers) {
     return <FavoritesEmpty/>;
   }
 
@@ -40,10 +40,10 @@ function Favorites({offers}: FavoritesProps) {
             <h1 className="favorites__title">Saved listing</h1>
             <ul className="favorites__list">
               {
-                uniqueCitites.map((city, index) => {
+                uniqueCitites.map((city) => {
                   const filteredOffers = getFilteredOffers(offers, city);
                   return (
-                    <FavoritesList city={city} key={Math.random() * 1000} offers={filteredOffers}/>
+                    <FavoritesList city={city} key={city} offers={filteredOffers}/>
                   );
                 })
               }

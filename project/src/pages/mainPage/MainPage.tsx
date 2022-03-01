@@ -10,7 +10,7 @@ type MainPageProps = {
 }
 
 function MainPage({offers}: MainPageProps) {
-  if (!offers || offers.length <= 0) {
+  if (!offers) {
     return <MainPageEmpty/>;
   }
   return (

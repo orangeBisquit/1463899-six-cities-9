@@ -126,8 +126,8 @@ function Property({offers, reviews}: PropertyProps) {
                   </span>
                 </h2>
                 <ul className="reviews__list">
-                  {reviews.map((review, index) => (
-                    <ReviewItem review={review} key={Math.random() * 1000}/>
+                  {reviews.map((review) => (
+                    <ReviewItem review={review} key={review.id}/>
                   ))}
 
                 </ul>
