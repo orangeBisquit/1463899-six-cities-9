@@ -12,7 +12,7 @@ type FavoritesProps = {
 
 function Favorites({offers}: FavoritesProps) {
 
-  if (!offers) {
+  if (!offers || offers.length <= 0) {
     return <FavoritesEmpty/>;
   }
 

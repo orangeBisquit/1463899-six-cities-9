@@ -1,18 +1,24 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Offer} from '../../types/offers';
 import Header from '../../components/header/Header';
 import Tabs from '../../components/tabs/Tabs';
 import OffersList from '../../components/offersList/OffersList';
 import MainPageEmpty from './MainPageEmpty/MainPageEmpty';
+import Map from '../../components/map/Map';
 
 type MainPageProps = {
   offers: Offer[];
 }
 
 function MainPage({offers}: MainPageProps) {
-  if (!offers) {
+  const [activeOffer, setActiveOffer] = useState<number | null>(null);
+
+  const handleOfferHover = (offerId: number | null) => setActiveOffer(offerId);
+
+  if (!offers || offers.length <= 0) {
     return <MainPageEmpty/>;
   }
+
   return (
     <div className="page page--gray page--main">
       <Header/>
@@ -40,11 +46,11 @@ function MainPage({offers}: MainPageProps) {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <OffersList offers={offers}/>
+                <OffersList offers={offers} handleOfferHover={handleOfferHover} activeOffer={activeOffer}/>
               </div>
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map"></section>
+              <Map city={offers[0].city} offers={offers} activeOffer={activeOffer}/>
             </div>
           </div>
         </div>
