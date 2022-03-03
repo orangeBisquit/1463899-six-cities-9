@@ -24,6 +24,8 @@ function OffersList({offers, handleOfferHover, activeOffer}: OffersListProps) {
             offer={offer}
             key={offer.id}
             onCardHover={onCardHover}
+            cardMods='cities__place-card'
+            imageMods='cities__place-card'
           />
         ),
       )}

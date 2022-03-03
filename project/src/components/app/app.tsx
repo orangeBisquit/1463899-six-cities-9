@@ -11,10 +11,11 @@ import {Review} from '../../types/reviews';
 
 type AppProps = {
   offers: Offer[];
+  similarOffers: Offer[];
   reviews: Review[];
 }
 
-function App({offers, reviews}: AppProps): JSX.Element {
+function App({offers, similarOffers, reviews}: AppProps): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
@@ -23,7 +24,7 @@ function App({offers, reviews}: AppProps): JSX.Element {
         <Route path={AppRoute.Favorites} element={<Favorites offers={offers}/>}/>
         <Route path={AppRoute.Offer} element={
           <PrivateRoute isAuthorized>
-            <Property offers={offers} reviews={reviews}/>
+            <Property offers={offers} reviews={reviews} similarOffers={similarOffers}/>
           </PrivateRoute>
         }
         >
