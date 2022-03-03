@@ -1,17 +1,18 @@
 import {Offer} from '../../types/offers';
 import OfferCard from '../offerCard/OfferCard';
-import React, {useState} from 'react';
+import React from 'react';
 
 type OffersListProps = {
   offers: Offer[];
+  handleOfferHover: (offerId: number | null) => void;
+  activeOffer: number | null;
 }
 
-function OffersList({offers}: OffersListProps) {
-  const [activeCard, setActiveCard] = useState(0);
+function OffersList({offers, handleOfferHover, activeOffer}: OffersListProps) {
 
   const onCardHover = (id: number) => {
-    if (id !== activeCard) {
-      setActiveCard(id);
+    if (id !== activeOffer) {
+      handleOfferHover(id);
     }
   };
 

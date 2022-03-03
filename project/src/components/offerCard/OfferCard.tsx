@@ -9,12 +9,17 @@ type CardProps = {
 
 function OfferCard({offer, onCardHover}: CardProps) {
 
-  const {previewImage, price, rating, isFavorite, title, type, id} = offer;
+  const {previewImage, price, rating, isFavorite, title, type, id, isPremium} = offer;
 
   const isFavoriteClasses = `place-card__bookmark-button ${isFavorite ? 'place-card__bookmark-button--active' : null} button`;
 
   return (
     <article className="cities__place-card place-card" onMouseOver={() => onCardHover(id)}>
+      {isPremium ?
+        <div className="place-card__mark">
+          <span>Premium</span>
+        </div>
+        : null}
       <div className="cities__image-wrapper place-card__image-wrapper">
         <Link to={`/offer/${id}`}>
           <img className="place-card__image" src={previewImage} width="260" height="200" alt="Place image"/>
