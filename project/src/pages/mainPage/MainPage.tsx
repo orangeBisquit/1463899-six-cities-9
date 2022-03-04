@@ -50,7 +50,7 @@ function MainPage({offers}: MainPageProps) {
               </div>
             </section>
             <div className="cities__right-section">
-              <Map city={offers[0].city} offers={offers} activeOffer={activeOffer}/>
+              <Map city={offers[0].city} offers={offers} activeOffer={activeOffer} mapMods='cities__map'/>
             </div>
           </div>
         </div>

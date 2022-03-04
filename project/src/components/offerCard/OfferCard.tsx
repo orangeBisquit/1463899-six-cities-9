@@ -2,25 +2,27 @@ import {Offer} from '../../types/offers';
 import {getRatingWidth} from '../../utils/utils';
 import {Link} from 'react-router-dom';
 
-type CardProps = {
+type OfferCardProps = {
   offer: Offer;
-  onCardHover: any;
+  onCardHover?: any;
+  cardMods: string;
+  imageMods: string;
 }
 
-function OfferCard({offer, onCardHover}: CardProps) {
+function OfferCard({offer, onCardHover, cardMods, imageMods}: OfferCardProps) {
 
   const {previewImage, price, rating, isFavorite, title, type, id, isPremium} = offer;
 
   const isFavoriteClasses = `place-card__bookmark-button ${isFavorite ? 'place-card__bookmark-button--active' : null} button`;
 
   return (
-    <article className="cities__place-card place-card" onMouseOver={() => onCardHover(id)}>
+    <article className={`${cardMods} place-card`} onMouseOver={() => onCardHover(id)}>
       {isPremium ?
         <div className="place-card__mark">
           <span>Premium</span>
         </div>
         : null}
-      <div className="cities__image-wrapper place-card__image-wrapper">
+      <div className={`${imageMods} place-card__image-wrapper`}>
         <Link to={`/offer/${id}`}>
           <img className="place-card__image" src={previewImage} width="260" height="200" alt="Place image"/>
         </Link>
