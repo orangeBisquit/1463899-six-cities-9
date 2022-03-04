@@ -29,18 +29,26 @@ function Map({city, offers, activeOffer, mapMods}: MapProps): JSX.Element {
 
   useEffect(() => {
     if (map) {
+
+      map.setView({
+        lat: city.location.latitude,
+        lng: city.location.longitude,
+      });
+
       offers.forEach((offer) => {
+
         const marker = new Marker({
-          lat: offer.city.location.latitude,
-          lng: offer.city.location.longitude,
+          lat: offer.location.latitude,
+          lng: offer.location.longitude,
         });
 
         marker
           .setIcon(activeOffer !== null && offer.id === activeOffer ? activeIconPin : defaultIconPin)
           .addTo(map);
+
       });
     }
-  }, [map, offers, activeOffer]);
+  }, [map, offers, activeOffer, city]);
 
   return <section className={`${mapMods} map`} ref={mapRef}/>;
 }

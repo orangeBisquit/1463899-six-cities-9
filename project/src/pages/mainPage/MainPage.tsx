@@ -1,10 +1,13 @@
 import React, {useState} from 'react';
-import {Offer} from '../../types/offers';
 import Header from '../../components/header/Header';
 import Tabs from '../../components/tabs/Tabs';
 import OffersList from '../../components/offersList/OffersList';
 import MainPageEmpty from './MainPageEmpty/MainPageEmpty';
 import Map from '../../components/map/Map';
+import {State} from '../../types/store';
+import {capitalizeFirstLetter, getCityOffers} from '../../utils/utils';
+import {useAppSelector} from '../../hooks';
+import {Offer} from '../../types/offers';
 
 type MainPageProps = {
   offers: Offer[];
@@ -12,6 +15,9 @@ type MainPageProps = {
 
 function MainPage({offers}: MainPageProps) {
   const [activeOffer, setActiveOffer] = useState<number | null>(null);
+
+  const {city} = useAppSelector((state: State) => state);
+  const filderedOffers = getCityOffers(city, offers);
 
   const handleOfferHover = (offerId: number | null) => setActiveOffer(offerId);
 
@@ -24,12 +30,13 @@ function MainPage({offers}: MainPageProps) {
       <Header/>
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
-        <Tabs/>
+
+        <Tabs city={city} onCityChange={handleOfferHover}/>
         <div className="cities">
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{offers.length} places to stay in Amsterdam</b>
+              <b className="places__found">{filderedOffers.length} places to stay in {capitalizeFirstLetter(city)}</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex={0}>
@@ -46,11 +53,13 @@ function MainPage({offers}: MainPageProps) {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <OffersList offers={offers} handleOfferHover={handleOfferHover} activeOffer={activeOffer}/>
+                <OffersList offers={filderedOffers} handleOfferHover={handleOfferHover} activeOffer={activeOffer}/>
               </div>
             </section>
             <div className="cities__right-section">
-              <Map city={offers[0].city} offers={offers} activeOffer={activeOffer} mapMods='cities__map'/>
+              <Map city={filderedOffers[0].city} offers={filderedOffers} activeOffer={activeOffer}
+                mapMods='cities__map'
+              />
             </div>
           </div>
         </div>

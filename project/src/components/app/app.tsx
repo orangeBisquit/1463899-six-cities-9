@@ -1,21 +1,25 @@
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
-import Property from '../../pages/property/Property';
 import Login from '../../pages/login/Login';
 import MainPage from '../../pages/mainPage/MainPage';
-import Favorites from '../../pages/favorites/Favorites';
 import NotFound from '../../pages/notFound/NotFound';
-import PrivateRoute from '../privateRoute/PrivateRoute';
 import {AppRoute} from '../../utils/const';
 import {Offer} from '../../types/offers';
 import {Review} from '../../types/reviews';
+import Favorites from '../../pages/favorites/Favorites';
+import PrivateRoute from '../privateRoute/PrivateRoute';
+import Property from '../../pages/property/Property';
+import {useAppSelector} from '../../hooks';
+import {State} from '../../types/store';
 
 type AppProps = {
-  offers: Offer[];
   similarOffers: Offer[];
   reviews: Review[];
 }
 
-function App({offers, similarOffers, reviews}: AppProps): JSX.Element {
+function App({similarOffers, reviews}: AppProps): JSX.Element {
+
+  const {offers} = useAppSelector((state: State) => state);
+
   return (
     <BrowserRouter>
       <Routes>

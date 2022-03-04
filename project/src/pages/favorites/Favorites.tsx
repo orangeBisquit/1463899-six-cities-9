@@ -3,8 +3,7 @@ import Header from '../../components/header/Header';
 import Footer from '../../components/footer/Footer';
 import FavoritesList from '../../components/favoritesList/FavoritesList';
 import FavoritesEmpty from './FavoritesEmpty/FavoritesEmpty';
-
-/*import FavoritesEmpty from './FavoritesEmpty/FavoritesEmpty';*/
+import {getFavoriteOffers} from '../../utils/utils';
 
 type FavoritesProps = {
   offers: Offer[];
@@ -12,7 +11,9 @@ type FavoritesProps = {
 
 function Favorites({offers}: FavoritesProps) {
 
-  if (!offers || offers.length <= 0) {
+  const favoriteOffers = getFavoriteOffers(offers);
+
+  if (!favoriteOffers || favoriteOffers.length <= 0) {
     return <FavoritesEmpty/>;
   }
 
@@ -26,7 +27,7 @@ function Favorites({offers}: FavoritesProps) {
     return Array.from(cities).sort();
   };
 
-  const uniqueCitites = getUniqueCities(offers);
+  const uniqueCitites = getUniqueCities(favoriteOffers);
 
   const getFilteredOffers = (offerItems: Offer[], city: string) => offerItems.filter((offer) => offer.city.name === city);
 
@@ -41,7 +42,7 @@ function Favorites({offers}: FavoritesProps) {
             <ul className="favorites__list">
               {
                 uniqueCitites.map((city) => {
-                  const filteredOffers = getFilteredOffers(offers, city);
+                  const filteredOffers = getFilteredOffers(favoriteOffers, city);
                   return (
                     <FavoritesList city={city} key={city} offers={filteredOffers}/>
                   );
