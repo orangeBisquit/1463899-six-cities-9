@@ -1,40 +1,43 @@
 import React from 'react';
+import {CITIES} from '../../utils/const';
+import {capitalizeFirstLetter} from '../../utils/utils';
+import {useAppDispatch} from '../../hooks';
+import {setCity} from '../../store/action';
 
-function Tabs() {
+type TabsProps = {
+  city: string;
+  onCityChange: (offerId: number | null) => void;
+}
+
+function Tabs({city, onCityChange}: TabsProps) {
+
+  const dispatch = useAppDispatch();
+
+  const handleClick = (cityName: string) => {
+    dispatch(setCity(cityName));
+    onCityChange(null);
+  };
+
   return (
     <div className="tabs">
       <section className="locations container">
         <ul className="locations__list tabs__list">
-          <li className="locations__item">
-            <a className="locations__item-link tabs__item" href="#">
-              <span>Paris</span>
-            </a>
-          </li>
-          <li className="locations__item">
-            <a className="locations__item-link tabs__item" href="#">
-              <span>Cologne</span>
-            </a>
-          </li>
-          <li className="locations__item">
-            <a className="locations__item-link tabs__item" href="#">
-              <span>Brussels</span>
-            </a>
-          </li>
-          <li className="locations__item">
-            <a className="locations__item-link tabs__item tabs__item--active">
-              <span>Amsterdam</span>
-            </a>
-          </li>
-          <li className="locations__item">
-            <a className="locations__item-link tabs__item" href="#">
-              <span>Hamburg</span>
-            </a>
-          </li>
-          <li className="locations__item">
-            <a className="locations__item-link tabs__item" href="#">
-              <span>Dusseldorf</span>
-            </a>
-          </li>
+          {CITIES.map((cityName) => {
+            const activeClass = cityName === city ? 'tabs__item--active' : '';
+
+            return (
+              <li className="locations__item" key={cityName}>
+                <a
+                  className={`locations__item-link tabs__item ${activeClass}`}
+                  href="#"
+
+                  onClick={() => handleClick(cityName)}
+                >
+                  <span>{capitalizeFirstLetter(cityName)}</span>
+                </a>
+              </li>
+            );
+          })}
         </ul>
       </section>
     </div>
