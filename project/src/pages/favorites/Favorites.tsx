@@ -3,7 +3,7 @@ import Header from '../../components/header/Header';
 import Footer from '../../components/footer/Footer';
 import FavoritesList from '../../components/favoritesList/FavoritesList';
 import FavoritesEmpty from './FavoritesEmpty/FavoritesEmpty';
-import {getFavoriteOffers} from '../../utils/utils';
+import {getFavoriteOffers} from '../../utils/filter';
 
 type FavoritesProps = {
   offers: Offer[];
