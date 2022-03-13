@@ -1,4 +1,4 @@
-import {BrowserRouter, Route, Routes} from 'react-router-dom';
+import {Route, Routes} from 'react-router-dom';
 import Login from '../../pages/login/Login';
 import MainPage from '../../pages/mainPage/MainPage';
 import NotFound from '../../pages/notFound/NotFound';
@@ -10,6 +10,10 @@ import PrivateRoute from '../privateRoute/PrivateRoute';
 import Property from '../../pages/property/Property';
 import {useAppSelector} from '../../hooks';
 import {State} from '../../types/store';
+import LoadingScreen from '../loadingScreen/LoadingScreen';
+import {isCheckedAuth} from '../../utils/utils';
+import browserHistory from '../../browser-history';
+import HistoryRouter from '../history-route/HistoryRouter';
 
 type AppProps = {
   similarOffers: Offer[];
@@ -19,15 +23,20 @@ type AppProps = {
 function App({similarOffers, reviews}: AppProps): JSX.Element {
 
   const {offers} = useAppSelector((state: State) => state);
+  const {authorizationStatus, isDataLoaded} = useAppSelector((state) => state);
+
+  if (isCheckedAuth(authorizationStatus) || !isDataLoaded) {
+    return <LoadingScreen/>;
+  }
 
   return (
-    <BrowserRouter>
+    <HistoryRouter history={browserHistory}>
       <Routes>
         <Route index element={<MainPage offers={offers}/>}/>
         <Route path={AppRoute.Login} element={<Login/>}/>
         <Route path={AppRoute.Favorites} element={<Favorites offers={offers}/>}/>
         <Route path={AppRoute.Offer} element={
-          <PrivateRoute isAuthorized>
+          <PrivateRoute>
             <Property offers={offers} reviews={reviews} similarOffers={similarOffers}/>
           </PrivateRoute>
         }
@@ -36,7 +45,7 @@ function App({similarOffers, reviews}: AppProps): JSX.Element {
 
         <Route path="*" element={<NotFound/>}/>
       </Routes>
-    </BrowserRouter>
+    </HistoryRouter>
   );
 }
 

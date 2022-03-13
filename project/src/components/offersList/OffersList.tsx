@@ -1,18 +1,23 @@
-import {Offer} from '../../types/offers';
+import {CurrentOfferId, Offer} from '../../types/offers';
 import OfferCard from '../offerCard/OfferCard';
 import React from 'react';
+import {useAppDispatch} from '../../hooks';
+import {setActiveOfferId} from '../../store/action';
 
 type OffersListProps = {
   offers: Offer[];
-  handleOfferHover: (offerId: number | null) => void;
-  activeOffer: number | null;
+  handleOfferHover: (offerId: CurrentOfferId) => void;
+  activeOffer: CurrentOfferId;
 }
 
 function OffersList({offers, handleOfferHover, activeOffer}: OffersListProps) {
 
-  const onCardHover = (id: number) => {
+  const dispatch = useAppDispatch();
+
+  const onCardHover = (id: CurrentOfferId) => {
     if (id !== activeOffer) {
       handleOfferHover(id);
+      dispatch(setActiveOfferId(id));
     }
   };
 

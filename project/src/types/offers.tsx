@@ -9,7 +9,7 @@ export type City = {
   name: string
 }
 
-type Host = {
+export type User = {
   avatarUrl: string
   id: number
   isPro: boolean
@@ -21,7 +21,7 @@ export type Offer = {
   city: City,
   description: string
   goods: string[],
-  host: Host,
+  host: User,
   id: number,
   images: string[],
   isFavorite: boolean
@@ -34,3 +34,6 @@ export type Offer = {
   title: string
   type: string
 }
+
+export type CurrentOfferId = string | undefined;
+
