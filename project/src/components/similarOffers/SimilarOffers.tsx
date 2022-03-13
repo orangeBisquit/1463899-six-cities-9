@@ -1,15 +1,15 @@
-import {Offer} from '../../types/offers';
+import {CurrentOfferId, Offer} from '../../types/offers';
 import OfferCard from '../offerCard/OfferCard';
 
 type SimilarOffersProps = {
   similarOffers: Offer[];
-  handleOfferHover: (offerId: number | null) => void;
-  activeOffer: number | null;
+  handleOfferHover: (offerId: CurrentOfferId) => void;
+  activeOffer: CurrentOfferId;
 }
 
 function SimilarOffers({similarOffers, handleOfferHover, activeOffer}: SimilarOffersProps) {
 
-  const onCardHover = (id: number) => {
+  const onCardHover = (id: CurrentOfferId) => {
     if (id !== activeOffer) {
       handleOfferHover(id);
     }

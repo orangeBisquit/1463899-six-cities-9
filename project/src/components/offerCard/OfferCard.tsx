@@ -10,7 +10,6 @@ type OfferCardProps = {
 }
 
 function OfferCard({offer, onCardHover, cardMods, imageMods}: OfferCardProps) {
-
   const {previewImage, price, rating, isFavorite, title, type, id, isPremium} = offer;
 
   const isFavoriteClasses = `place-card__bookmark-button ${isFavorite ? 'place-card__bookmark-button--active' : null} button`;

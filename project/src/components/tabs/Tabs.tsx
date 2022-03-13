@@ -1,21 +1,21 @@
 import React from 'react';
 import {CITIES} from '../../utils/const';
 import {capitalizeFirstLetter} from '../../utils/utils';
-import {useAppDispatch} from '../../hooks';
+import {useAppDispatch, useAppSelector} from '../../hooks';
 import {setCity} from '../../store/action';
+import {CurrentOfferId} from '../../types/offers';
 
 type TabsProps = {
-  city: string;
-  onCityChange: (offerId: number | null) => void;
+  onCityChange: (offerId: CurrentOfferId) => void;
 }
 
-function Tabs({city, onCityChange}: TabsProps) {
+function Tabs({onCityChange}: TabsProps) {
 
   const dispatch = useAppDispatch();
+  const {city} = useAppSelector((state) => state);
 
   const handleClick = (cityName: string) => {
     dispatch(setCity(cityName));
-    onCityChange(null);
   };
 
   return (

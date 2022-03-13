@@ -2,12 +2,12 @@ import {useEffect, useRef} from 'react';
 import useMap from '../../hooks/useMap/useMap';
 import {Icon, Marker} from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import {City, Offer} from '../../types/offers';
+import {City, CurrentOfferId, Offer} from '../../types/offers';
 
 type MapProps = {
   city: City;
   offers: Offer[];
-  activeOffer: number | null;
+  activeOffer: CurrentOfferId;
   mapMods: string;
 }
 
@@ -42,8 +42,14 @@ function Map({city, offers, activeOffer, mapMods}: MapProps): JSX.Element {
           lng: offer.location.longitude,
         });
 
+        let currentOfferId;
+
+        if (activeOffer) {
+          currentOfferId = +activeOffer;
+        }
+
         marker
-          .setIcon(activeOffer !== null && offer.id === activeOffer ? activeIconPin : defaultIconPin)
+          .setIcon(activeOffer !== null && offer.id === currentOfferId ? activeIconPin : defaultIconPin)
           .addTo(map);
 
       });

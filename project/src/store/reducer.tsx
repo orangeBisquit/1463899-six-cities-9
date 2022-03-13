@@ -1,11 +1,44 @@
 import {createReducer} from '@reduxjs/toolkit';
-import {setCity, setOffers, setSortType} from './action';
-import {offers} from '../mocks/offers';
+import {
+  getLogin,
+  loadComments,
+  loadOffers,
+  loadOffersNearby,
+  loadSingleOffer,
+  requireAuthorization,
+  setActiveOfferId,
+  setCity,
+  setOffers,
+  setSortType
+} from './action';
+import {AuthorizationStatus} from '../utils/const';
+import {CurrentOfferId, Offer} from '../types/offers';
+import {Review} from '../types/reviews';
 
-const initialState = {
+type initialState = {
+  city: string,
+  offers: Offer[],
+  comments: Review[],
+  sortType: string,
+  authorizationStatus: AuthorizationStatus,
+  isDataLoaded: boolean,
+  login: string,
+  activeOfferId: CurrentOfferId,
+  currentOffer: Offer | null,
+  similarOffers: Offer[],
+};
+
+const initialState: initialState = {
   city: 'paris',
-  offers: offers,
+  offers: [],
+  comments: [],
   sortType: 'popular',
+  authorizationStatus: AuthorizationStatus.Unknown,
+  isDataLoaded: false,
+  login: '',
+  activeOfferId: '',
+  currentOffer: null,
+  similarOffers: [],
 };
 
 export const reducer = createReducer(initialState, (builder) => {
@@ -18,5 +51,27 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setSortType, (state, action) => {
       state.sortType = action.payload;
+    })
+    .addCase(setActiveOfferId, (state, action) => {
+      state.activeOfferId = action.payload;
+    })
+    .addCase(loadOffers, (state, action) => {
+      state.offers = action.payload;
+      state.isDataLoaded = true;
+    })
+    .addCase(loadSingleOffer, (state, action) => {
+      state.currentOffer = action.payload;
+    })
+    .addCase(loadComments, (state, action) => {
+      state.comments = action.payload;
+    })
+    .addCase(loadOffersNearby, (state, action) => {
+      state.similarOffers = action.payload;
+    })
+    .addCase(requireAuthorization, (state, action) => {
+      state.authorizationStatus = action.payload;
+    })
+    .addCase(getLogin, (state, action) => {
+      state.login = action.payload;
     });
 });
