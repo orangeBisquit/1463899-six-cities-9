@@ -35,5 +35,10 @@ export type Offer = {
   type: string
 }
 
+export type FavoriteFlag = {
+  id: number,
+  flag: number,
+}
+
 export type CurrentOfferId = string | undefined;
 

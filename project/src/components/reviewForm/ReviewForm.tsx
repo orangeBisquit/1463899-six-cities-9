@@ -1,11 +1,37 @@
-import React, {useState} from 'react';
+import React, {FormEvent, useState} from 'react';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import {fetchCommentsAction, postCommentAction} from '../../store/api-actions';
+import {ReviewPost} from '../../types/reviews';
 
 function ReviewForm() {
   const [rating, setRating] = useState('');
   const [comment, setComment] = useState('');
 
+  const dispatch = useAppDispatch();
+  const {currentOffer} = useAppSelector((state) => state);
+
+  const commentInfo: ReviewPost = {
+    id: currentOffer?.id,
+    comment,
+    rating: +rating,
+  };
+
+  const clearForm = () => {
+    setRating('');
+    setComment('');
+  };
+
+  const submitDisabledFlag: boolean = comment.length < 50 || !rating;
+
+  const handleCommentSubmit = (evt: FormEvent<HTMLFormElement>) => {
+    evt.preventDefault();
+    dispatch(postCommentAction(commentInfo));
+    dispatch(fetchCommentsAction());
+    clearForm();
+  };
+
   return (
-    <form className="reviews__form form" action="#" method="post">
+    <form className="reviews__form form" action="#" method="post" onSubmit={(evt) => handleCommentSubmit(evt)}>
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
         <input className="form__rating-input visually-hidden" name="rating" value="5" id="5-stars"
@@ -71,7 +97,10 @@ function ReviewForm() {
           To submit review please make sure to set <span className="reviews__star">rating</span> and
           describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
-        <button className="reviews__submit form__submit button" type="submit" disabled>Submit</button>
+        <button className="reviews__submit form__submit button" type="submit"
+          disabled={submitDisabledFlag}
+        >Submit
+        </button>
       </div>
     </form>
   );

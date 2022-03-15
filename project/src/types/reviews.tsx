@@ -7,3 +7,11 @@ export type Review = {
   rating: number
   user: User,
 }
+
+export type ReviewPost = {
+  comment: string
+  id: number | undefined
+  rating: number
+}
+
+

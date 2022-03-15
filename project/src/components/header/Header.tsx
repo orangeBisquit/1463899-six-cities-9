@@ -5,7 +5,7 @@ import {useAppDispatch, useAppSelector} from '../../hooks';
 import UserLink from '../user/User';
 
 function Header() {
-  const {authorizationStatus, login} = useAppSelector((state) => state);
+  const {authorizationStatus} = useAppSelector((state) => state);
   const isLoggedIn = authorizationStatus === AuthorizationStatus.Auth;
 
   const dispatch = useAppDispatch();
@@ -23,7 +23,7 @@ function Header() {
           <nav className="header__nav">
             <ul className="header__nav-list">
               {isLoggedIn ?
-                <UserLink login={login}/> : null}
+                <UserLink/> : null}
 
               <li className="header__nav-item">
                 <Link

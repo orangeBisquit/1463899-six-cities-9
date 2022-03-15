@@ -4,6 +4,8 @@ import ReviewForm from '../reviewForm/ReviewForm';
 import React from 'react';
 import {Offer} from '../../types/offers';
 import {Review} from '../../types/reviews';
+import {useAppSelector} from '../../hooks';
+import {AuthorizationStatus} from '../../utils/const';
 
 type PropertyInfoProps = {
   offer: Offer | null;
@@ -12,17 +14,21 @@ type PropertyInfoProps = {
 
 function PropertyInfo({offer, reviews}: PropertyInfoProps) {
 
+  const {authorizationStatus} = useAppSelector((state) => state);
+
   if (!offer) {
     return null;
   }
 
   const {id, images, isPremium, title, rating, type, bedrooms, maxAdults, price, goods, host, description} = offer;
 
+  const limitedImages = images.slice(0, 6);
+
   return (
     <>
       <div className="property__gallery-container container">
         <div className="property__gallery">
-          {images.map((image: string) => (
+          {limitedImages.map((image: string) => (
             <div className="property__image-wrapper" key={id.toString() + image}>
               <img className="property__image" src={image} alt="Photo studio"/>
             </div>
@@ -111,7 +117,8 @@ function PropertyInfo({offer, reviews}: PropertyInfoProps) {
           </div>
           <section className="property__reviews reviews">
             <ReviewList reviews={reviews}/>
-            <ReviewForm/>
+            {authorizationStatus === AuthorizationStatus.Auth ? <ReviewForm/> : null}
+
           </section>
         </div>
       </div>

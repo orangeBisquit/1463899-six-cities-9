@@ -8,26 +8,25 @@ import {State} from '../../types/store';
 import {capitalizeFirstLetter} from '../../utils/utils';
 import {getCityOffers} from '../../utils/filter';
 import {useAppDispatch, useAppSelector} from '../../hooks';
-import {CurrentOfferId, Offer} from '../../types/offers';
+import {CurrentOfferId} from '../../types/offers';
 import SortOffers from '../../components/sortOffers/SortOffers';
 import {sortOffers} from '../../utils/sort';
 import {setActiveOfferId} from '../../store/action';
 
-type MainPageProps = {
-  offers: Offer[];
-}
-
-function MainPage({offers}: MainPageProps) {
-  const {city, sortType, activeOfferId} = useAppSelector((state: State) => state);
+function MainPage() {
+  const {city, sortType, activeOfferId, offers} = useAppSelector((state: State) => state);
   const dispatch = useAppDispatch();
 
-  const filderedOffers = getCityOffers(city, offers);
-  const sortedOffers = sortOffers(sortType, filderedOffers);
+  const filteredOffers = getCityOffers(city, offers);
+  const sortedOffers = sortOffers(sortType, filteredOffers);
   const handleOfferHover = (offerId: CurrentOfferId) => dispatch(setActiveOfferId(offerId));
 
   if (!offers || offers.length <= 0) {
     return <MainPageEmpty/>;
   }
+
+  // eslint-disable-next-line no-console
+  console.log(activeOfferId);
 
   return (
     <div className="page page--gray page--main">
@@ -47,7 +46,7 @@ function MainPage({offers}: MainPageProps) {
               </div>
             </section>
             <div className="cities__right-section">
-              <Map city={filderedOffers[0].city} offers={filderedOffers} activeOffer={activeOfferId}
+              <Map city={filteredOffers[0].city} offers={filteredOffers} activeOffer={activeOfferId}
                 mapMods='cities__map'
               />
             </div>

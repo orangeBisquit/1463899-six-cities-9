@@ -15,6 +15,7 @@ function OffersList({offers, handleOfferHover, activeOffer}: OffersListProps) {
   const dispatch = useAppDispatch();
 
   const onCardHover = (id: CurrentOfferId) => {
+
     if (id !== activeOffer) {
       handleOfferHover(id);
       dispatch(setActiveOfferId(id));

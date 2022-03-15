@@ -7,6 +7,8 @@ export const setCity = createAction<string>('mainPage/setCity');
 
 export const setOffers = createAction<Offer[]>('mainPage/setOffers');
 
+export const setFavoriteOffers = createAction<Offer[]>('favorites/setFavorites');
+
 export const setSortType = createAction<string>('mainPage/setSortType');
 
 export const setActiveOfferId = createAction<CurrentOfferId>('offer/setOfferId');
@@ -18,6 +20,8 @@ export const loadComments = createAction<Review[]>('data/loadComments');
 export const loadOffersNearby = createAction<Offer[]>('data/offersNearby');
 
 export const loadSingleOffer = createAction<Offer>('data/loadOffer');
+
+export const resetCurrentOffer = createAction('data/resetCurrentOffer');
 
 export const requireAuthorization = createAction<AuthorizationStatus>('user/requireAuthorization');
 
