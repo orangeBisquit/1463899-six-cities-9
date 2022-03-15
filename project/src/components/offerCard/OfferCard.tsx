@@ -1,6 +1,10 @@
 import {Offer} from '../../types/offers';
 import {getRatingWidth} from '../../utils/utils';
 import {Link} from 'react-router-dom';
+import {fetchFavoriteOffersAction, fetchOffersAction, toggleFavoriteAction} from '../../store/api-actions';
+import {useAppDispatch} from '../../hooks';
+import {useState} from 'react';
+import {resetCurrentOffer} from '../../store/action';
 
 type OfferCardProps = {
   offer: Offer;
@@ -12,7 +16,30 @@ type OfferCardProps = {
 function OfferCard({offer, onCardHover, cardMods, imageMods}: OfferCardProps) {
   const {previewImage, price, rating, isFavorite, title, type, id, isPremium} = offer;
 
-  const isFavoriteClasses = `place-card__bookmark-button ${isFavorite ? 'place-card__bookmark-button--active' : null} button`;
+  const [isOfferFavorite, setToggleFavorite] = useState(isFavorite);
+
+  const dispatch = useAppDispatch();
+
+  const postFavoriteFlag = isFavorite ? 0 : 1;
+
+  const handleFavoriteClick = () => {
+    dispatch(toggleFavoriteAction({
+      id: offer.id,
+      flag: postFavoriteFlag,
+    }));
+
+    setToggleFavorite(!isOfferFavorite);
+
+    dispatch(fetchOffersAction());
+    dispatch(fetchFavoriteOffersAction());
+  };
+
+  const handleOfferClick = () => {
+    dispatch(resetCurrentOffer());
+  };
+
+
+  const isFavoriteClasses = `place-card__bookmark-button ${isOfferFavorite ? 'place-card__bookmark-button--active' : null} button`;
 
   return (
     <article className={`${cardMods} place-card`} onMouseOver={() => onCardHover(id)}>
@@ -22,7 +49,7 @@ function OfferCard({offer, onCardHover, cardMods, imageMods}: OfferCardProps) {
         </div>
         : null}
       <div className={`${imageMods} place-card__image-wrapper`}>
-        <Link to={`/offer/${id}`}>
+        <Link to={`/offer/${id}`} onClick={handleOfferClick}>
           <img className="place-card__image" src={previewImage} width="260" height="200" alt="Place image"/>
         </Link>
       </div>
@@ -35,6 +62,7 @@ function OfferCard({offer, onCardHover, cardMods, imageMods}: OfferCardProps) {
           <button
             className={isFavoriteClasses}
             type="button"
+            onClick={handleFavoriteClick}
           >
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"/>

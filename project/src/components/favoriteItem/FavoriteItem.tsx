@@ -1,12 +1,26 @@
 import {Offer} from '../../types/offers';
 import {getRatingWidth} from '../../utils/utils';
+import {useAppDispatch} from '../../hooks';
+import {fetchOffersAction, toggleFavoriteAction} from '../../store/api-actions';
+import {store} from '../../store/store';
 
 type FavoriteItemProps = {
-  offer: Offer;
+  offer: Offer,
 }
 
 function FavoriteItem({offer}: FavoriteItemProps) {
-  const {price, rating, isPremium, title, type, previewImage} = offer;
+  const {id, price, rating, isPremium, title, type, previewImage} = offer;
+
+  const dispatch = useAppDispatch();
+
+  const handleFavoriteClick = async () => {
+    await dispatch(toggleFavoriteAction({
+      id: id,
+      flag: 0,
+    }));
+    await store.dispatch(fetchOffersAction());
+  };
+
 
   return (
     <article className="favorites__card place-card">
@@ -34,6 +48,7 @@ function FavoriteItem({offer}: FavoriteItemProps) {
           </div>
           <button className="place-card__bookmark-button place-card__bookmark-button--active button"
             type="button"
+            onClick={handleFavoriteClick}
           >
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>

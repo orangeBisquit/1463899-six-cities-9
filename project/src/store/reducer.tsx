@@ -6,8 +6,10 @@ import {
   loadOffersNearby,
   loadSingleOffer,
   requireAuthorization,
+  resetCurrentOffer,
   setActiveOfferId,
   setCity,
+  setFavoriteOffers,
   setOffers,
   setSortType
 } from './action';
@@ -26,6 +28,7 @@ type initialState = {
   activeOfferId: CurrentOfferId,
   currentOffer: Offer | null,
   similarOffers: Offer[],
+  favoriteOffers: Offer[],
 };
 
 const initialState: initialState = {
@@ -39,6 +42,7 @@ const initialState: initialState = {
   activeOfferId: '',
   currentOffer: null,
   similarOffers: [],
+  favoriteOffers: [],
 };
 
 export const reducer = createReducer(initialState, (builder) => {
@@ -48,6 +52,9 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setOffers, (state, action) => {
       state.offers = action.payload;
+    })
+    .addCase(setFavoriteOffers, (state, action) => {
+      state.favoriteOffers = action.payload;
     })
     .addCase(setSortType, (state, action) => {
       state.sortType = action.payload;
@@ -61,6 +68,9 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(loadSingleOffer, (state, action) => {
       state.currentOffer = action.payload;
+    })
+    .addCase(resetCurrentOffer, (state, action) => {
+      state.currentOffer = null;
     })
     .addCase(loadComments, (state, action) => {
       state.comments = action.payload;
