@@ -1,10 +1,11 @@
 import {Offer} from '../../types/offers';
 import {getRatingWidth} from '../../utils/utils';
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import {fetchFavoriteOffersAction, fetchOffersAction, toggleFavoriteAction} from '../../store/api-actions';
-import {useAppDispatch} from '../../hooks';
+import {useAppDispatch, useAppSelector} from '../../hooks';
 import {useState} from 'react';
 import {resetCurrentOffer} from '../../store/action';
+import {AuthorizationStatus} from '../../utils/const';
 
 type OfferCardProps = {
   offer: Offer;
@@ -15,14 +16,18 @@ type OfferCardProps = {
 
 function OfferCard({offer, onCardHover, cardMods, imageMods}: OfferCardProps) {
   const {previewImage, price, rating, isFavorite, title, type, id, isPremium} = offer;
-
+  const {authorizationStatus} = useAppSelector((state) => state);
   const [isOfferFavorite, setToggleFavorite] = useState(isFavorite);
+
+  const navigate = useNavigate();
 
   const dispatch = useAppDispatch();
 
   const postFavoriteFlag = isFavorite ? 0 : 1;
 
   const handleFavoriteClick = () => {
+    authorizationStatus !== AuthorizationStatus.Auth && navigate('/login');
+
     dispatch(toggleFavoriteAction({
       id: offer.id,
       flag: postFavoriteFlag,

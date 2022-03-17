@@ -15,7 +15,7 @@ function Property() {
 
   const handleOfferHover = (offerId: CurrentOfferId) => setActiveOffer(offerId);
 
-  const {comments, currentOffer, similarOffers, offers} = useAppSelector((state) => state);
+  const {comments, currentOffer, similarOffers, offers, authorizationStatus} = useAppSelector((state) => state);
 
   const {id: propertyId} = useParams();
   const property = offers.find((elem) => elem.id.toString() === propertyId);
@@ -39,7 +39,7 @@ function Property() {
 
   return (
     <div className="page">
-      <Header/>
+      <Header authorizationStatus={authorizationStatus}/>
       <main className="page__main page__main--property">
         <section className="property">
           <PropertyInfo offer={currentOffer} reviews={comments}/>

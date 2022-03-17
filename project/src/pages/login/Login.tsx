@@ -1,6 +1,6 @@
 import Header from '../../components/header/Header';
 import {FormEvent, useRef} from 'react';
-import {useAppDispatch} from '../../hooks';
+import {useAppDispatch, useAppSelector} from '../../hooks';
 import {AuthData} from '../../types/auth-data';
 import {loginAction} from '../../store/api-actions';
 import {getLogin} from '../../store/action';
@@ -8,6 +8,8 @@ import {getLogin} from '../../store/action';
 function Login() {
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
+
+  const {authorizationStatus} = useAppSelector((state) => state);
 
   const dispatch = useAppDispatch();
 
@@ -29,7 +31,7 @@ function Login() {
 
   return (
     <div className="page page--gray page--login">
-      <Header/>
+      <Header authorizationStatus={authorizationStatus}/>
 
       <main className="page__main page__main--login">
         <div className="page__login-container container">

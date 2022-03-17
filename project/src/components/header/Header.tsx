@@ -1,11 +1,16 @@
 import {Link} from 'react-router-dom';
 import {AppRoute, AuthorizationStatus} from '../../utils/const';
 import {logoutAction} from '../../store/api-actions';
-import {useAppDispatch, useAppSelector} from '../../hooks';
+import {useAppDispatch} from '../../hooks';
 import UserLink from '../user/User';
+import {memo} from 'react';
 
-function Header() {
-  const {authorizationStatus} = useAppSelector((state) => state);
+type HeaderProps = {
+  authorizationStatus: AuthorizationStatus
+}
+
+function Header({authorizationStatus}: HeaderProps) {
+
   const isLoggedIn = authorizationStatus === AuthorizationStatus.Auth;
 
   const dispatch = useAppDispatch();
@@ -47,4 +52,4 @@ function Header() {
   );
 }
 
-export default Header;
+export default memo(Header, (prev, next) => prev.authorizationStatus === next.authorizationStatus);

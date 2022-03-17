@@ -1,9 +1,12 @@
 import Header from '../../../components/header/Header';
+import {useAppSelector} from '../../../hooks';
 
 function PropertyLoggedIn() {
+  const {authorizationStatus} = useAppSelector((state) => state);
+
   return (
     <div className="page">
-      <Header/>
+      <Header authorizationStatus={authorizationStatus}/>
       <main className="page__main page__main--property">
         <section className="property">
           <div className="property__gallery-container container">

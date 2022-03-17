@@ -1,11 +1,13 @@
 import {capitalizeFirstLetter, getRatingWidth} from '../../utils/utils';
 import ReviewList from '../reviewList/ReviewList';
 import ReviewForm from '../reviewForm/ReviewForm';
-import React from 'react';
+import React, {useState} from 'react';
 import {Offer} from '../../types/offers';
 import {Review} from '../../types/reviews';
-import {useAppSelector} from '../../hooks';
+import {useAppDispatch, useAppSelector} from '../../hooks';
 import {AuthorizationStatus} from '../../utils/const';
+import {fetchFavoriteOffersAction, fetchOffersAction, toggleFavoriteAction} from '../../store/api-actions';
+import {useNavigate} from 'react-router-dom';
 
 type PropertyInfoProps = {
   offer: Offer | null;
@@ -13,16 +15,56 @@ type PropertyInfoProps = {
 }
 
 function PropertyInfo({offer, reviews}: PropertyInfoProps) {
-
   const {authorizationStatus} = useAppSelector((state) => state);
+  const [isOfferFavorite, setToggleFavorite] = useState(offer?.isFavorite);
+
+  const navigate = useNavigate();
+
+  const dispatch = useAppDispatch();
+
+
+  // eslint-disable-next-line no-console
+  console.log('Favorite: ', isOfferFavorite);
 
   if (!offer) {
     return null;
   }
 
-  const {id, images, isPremium, title, rating, type, bedrooms, maxAdults, price, goods, host, description} = offer;
+  const {
+    id,
+    images,
+    isPremium,
+    title,
+    rating,
+    type,
+    bedrooms,
+    maxAdults,
+    price,
+    goods,
+    host,
+    description,
+    isFavorite,
+  } = offer;
+
+  const postFavoriteFlag = isFavorite ? 0 : 1;
+
+  const handleFavoriteClick = () => {
+    authorizationStatus !== AuthorizationStatus.Auth && navigate('/login');
+
+    dispatch(toggleFavoriteAction({
+      id: offer.id,
+      flag: postFavoriteFlag,
+    }));
+
+    setToggleFavorite(!isOfferFavorite);
+
+    dispatch(fetchOffersAction());
+    dispatch(fetchFavoriteOffersAction());
+  };
 
   const limitedImages = images.slice(0, 6);
+
+  const isFavoriteClasses = `property__bookmark-button ${isOfferFavorite ? 'property__bookmark-button--active' : null} button`;
 
   return (
     <>
@@ -47,7 +89,7 @@ function PropertyInfo({offer, reviews}: PropertyInfoProps) {
             <h1 className="property__name">
               {title}
             </h1>
-            <button className="property__bookmark-button button" type="button">
+            <button className={isFavoriteClasses} type="button" onClick={handleFavoriteClick}>
               <svg className="property__bookmark-icon" width="31" height="33">
                 <use xlinkHref="#icon-bookmark"></use>
               </svg>

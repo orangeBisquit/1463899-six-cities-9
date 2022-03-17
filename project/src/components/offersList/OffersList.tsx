@@ -1,6 +1,6 @@
 import {CurrentOfferId, Offer} from '../../types/offers';
 import OfferCard from '../offerCard/OfferCard';
-import React from 'react';
+import React, {useCallback} from 'react';
 import {useAppDispatch} from '../../hooks';
 import {setActiveOfferId} from '../../store/action';
 
@@ -14,13 +14,13 @@ function OffersList({offers, handleOfferHover, activeOffer}: OffersListProps) {
 
   const dispatch = useAppDispatch();
 
-  const onCardHover = (id: CurrentOfferId) => {
+  const onCardHover = useCallback((id: CurrentOfferId) => {
 
     if (id !== activeOffer) {
       handleOfferHover(id);
       dispatch(setActiveOfferId(id));
     }
-  };
+  }, []);
 
   return (
     <>
