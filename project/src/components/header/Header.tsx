@@ -15,7 +15,6 @@ function Header({authorizationStatus}: HeaderProps) {
 
   const dispatch = useAppDispatch();
 
-
   return (
     <header className="header">
       <div className="container">

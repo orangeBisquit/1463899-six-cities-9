@@ -5,7 +5,7 @@ import React, {useState} from 'react';
 import {Offer} from '../../types/offers';
 import {Review} from '../../types/reviews';
 import {useAppDispatch, useAppSelector} from '../../hooks';
-import {AuthorizationStatus} from '../../utils/const';
+import {AuthorizationStatus, maxPropretyImages} from '../../utils/const';
 import {fetchFavoriteOffersAction, fetchOffersAction, toggleFavoriteAction} from '../../store/api-actions';
 import {useNavigate} from 'react-router-dom';
 
@@ -21,10 +21,6 @@ function PropertyInfo({offer, reviews}: PropertyInfoProps) {
   const navigate = useNavigate();
 
   const dispatch = useAppDispatch();
-
-
-  // eslint-disable-next-line no-console
-  console.log('Favorite: ', isOfferFavorite);
 
   if (!offer) {
     return null;
@@ -62,7 +58,7 @@ function PropertyInfo({offer, reviews}: PropertyInfoProps) {
     dispatch(fetchFavoriteOffersAction());
   };
 
-  const limitedImages = images.slice(0, 6);
+  const limitedImages = images.slice(0, maxPropretyImages);
 
   const isFavoriteClasses = `property__bookmark-button ${isOfferFavorite ? 'property__bookmark-button--active' : null} button`;
 

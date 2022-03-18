@@ -41,3 +41,15 @@ export enum HTTP_CODE {
   UNAUTHORIZED = 401,
   NOT_FOUND = 404,
 }
+
+export enum NameSpace {
+  offer = 'OFFER',
+  main = 'MAIN',
+  user = 'USER',
+}
+
+export const maxFormLength = 300;
+
+export const maxReviewItems = 10;
+
+export const maxPropretyImages = 6;

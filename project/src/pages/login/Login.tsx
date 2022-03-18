@@ -4,14 +4,21 @@ import {useAppDispatch, useAppSelector} from '../../hooks';
 import {AuthData} from '../../types/auth-data';
 import {loginAction} from '../../store/api-actions';
 import {getLogin} from '../../store/action';
+import {AuthorizationStatus} from '../../utils/const';
+import {useNavigate} from 'react-router-dom';
 
 function Login() {
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
 
   const {authorizationStatus} = useAppSelector((state) => state);
+  const navigate = useNavigate();
 
   const dispatch = useAppDispatch();
+
+  if (authorizationStatus === AuthorizationStatus.Auth) {
+    navigate('/');
+  }
 
   const onSubmit = (authData: AuthData) => {
     dispatch(loginAction(authData));
