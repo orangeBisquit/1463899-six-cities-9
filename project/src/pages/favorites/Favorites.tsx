@@ -6,7 +6,7 @@ import FavoritesEmpty from './FavoritesEmpty/FavoritesEmpty';
 import {useAppSelector} from '../../hooks';
 
 function Favorites() {
-  const {favoriteOffers} = useAppSelector((state) => state);
+  const {favoriteOffers, authorizationStatus} = useAppSelector((state) => state);
 
   if (!favoriteOffers || favoriteOffers.length <= 0) {
     return <FavoritesEmpty/>;
@@ -27,7 +27,7 @@ function Favorites() {
 
   return (
     <div className="page">
-      <Header/>
+      <Header authorizationStatus={authorizationStatus}/>
 
       <main className="page__main page__main--favorites">
         <div className="page__favorites-container container">

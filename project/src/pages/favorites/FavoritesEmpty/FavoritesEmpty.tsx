@@ -1,9 +1,12 @@
 import Header from '../../../components/header/Header';
+import {useAppSelector} from '../../../hooks';
 
 function FavoritesEmpty() {
+  const {authorizationStatus} = useAppSelector((state) => state);
+
   return (
     <div className="page page--favorites-empty">
-      <Header/>
+      <Header authorizationStatus={authorizationStatus}/>
 
       <main className="page__main page__main--favorites page__main--favorites-empty">
         <div className="page__favorites-container container">

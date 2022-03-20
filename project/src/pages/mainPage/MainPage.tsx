@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import Header from '../../components/header/Header';
 import Tabs from '../../components/tabs/Tabs';
 import OffersList from '../../components/offersList/OffersList';
@@ -14,27 +14,24 @@ import {sortOffers} from '../../utils/sort';
 import {setActiveOfferId} from '../../store/action';
 
 function MainPage() {
-  const {city, sortType, activeOfferId, offers} = useAppSelector((state: State) => state);
+  const {city, sortType, activeOfferId, offers, authorizationStatus} = useAppSelector((state: State) => state);
   const dispatch = useAppDispatch();
 
   const filteredOffers = getCityOffers(city, offers);
   const sortedOffers = sortOffers(sortType, filteredOffers);
-  const handleOfferHover = (offerId: CurrentOfferId) => dispatch(setActiveOfferId(offerId));
+  const handleOfferHover = useCallback((offerId: CurrentOfferId) => dispatch(setActiveOfferId(offerId)), []);
 
   if (!offers || offers.length <= 0) {
     return <MainPageEmpty/>;
   }
 
-  // eslint-disable-next-line no-console
-  console.log(activeOfferId);
-
   return (
     <div className="page page--gray page--main">
-      <Header/>
+      <Header authorizationStatus={authorizationStatus}/>
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
 
-        <Tabs onCityChange={handleOfferHover}/>
+        <Tabs city={city}/>
         <div className="cities">
           <div className="cities__places-container container">
             <section className="cities__places places">
