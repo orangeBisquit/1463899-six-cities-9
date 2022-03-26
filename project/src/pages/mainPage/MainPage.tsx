@@ -25,8 +25,6 @@ function MainPage() {
     return <MainPageEmpty/>;
   }
 
-  // eslint-disable-next-line no-console
-  console.log(activeOfferId);
 
   return (
     <div className="page page--gray page--main">
@@ -42,7 +40,7 @@ function MainPage() {
               <b className="places__found">{sortedOffers.length} places to stay in {capitalizeFirstLetter(city)}</b>
               <SortOffers/>
               <div className="cities__places-list places__list tabs__content">
-                <OffersList offers={sortedOffers} handleOfferHover={handleOfferHover} activeOffer={activeOfferId}/>
+                <OffersList offers={sortedOffers} handleOfferHover={handleOfferHover} />
               </div>
             </section>
             <div className="cities__right-section">

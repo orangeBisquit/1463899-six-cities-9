@@ -7,19 +7,15 @@ import {setActiveOfferId} from '../../store/action';
 type OffersListProps = {
   offers: Offer[];
   handleOfferHover: (offerId: CurrentOfferId) => void;
-  activeOffer: CurrentOfferId;
 }
 
-function OffersList({offers, handleOfferHover, activeOffer}: OffersListProps) {
+function OffersList({offers, handleOfferHover}: OffersListProps) {
 
   const dispatch = useAppDispatch();
 
   const onCardHover = (id: CurrentOfferId) => {
-
-    if (id !== activeOffer) {
-      handleOfferHover(id);
-      dispatch(setActiveOfferId(id));
-    }
+    handleOfferHover(id);
+    dispatch(setActiveOfferId(id));
   };
 
   return (
