@@ -8,6 +8,7 @@ import {useNavigate} from 'react-router-dom';
 import {AuthorizationStatus} from '../../utils/const';
 import {State} from '../../types/store';
 
+
 function Login() {
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
@@ -17,6 +18,10 @@ function Login() {
   const navigate = useNavigate();
 
   const dispatch = useAppDispatch();
+
+  if (authorizationStatus === AuthorizationStatus.Auth) {
+    navigate('/');
+  }
 
   const onSubmit = (authData: AuthData) => {
     dispatch(loginAction(authData));
@@ -40,7 +45,7 @@ function Login() {
 
   return (
     <div className="page page--gray page--login">
-      <Header/>
+      <Header authorizationStatus={authorizationStatus}/>
 
       <main className="page__main page__main--login">
         <div className="page__login-container container">

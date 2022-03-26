@@ -2,6 +2,7 @@ import React, {FormEvent, useState} from 'react';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {fetchCommentsAction, postCommentAction} from '../../store/api-actions';
 import {ReviewPost} from '../../types/reviews';
+import {maxFormLength} from '../../utils/const';
 
 function ReviewForm() {
   const [rating, setRating] = useState('');
@@ -90,6 +91,7 @@ function ReviewForm() {
         placeholder="Tell how was your stay, what you like and what can be improved"
         onChange={({target}) => setComment(target.value)}
         value={comment}
+        maxLength={maxFormLength}
       >
       </textarea>
       <div className="reviews__button-wrapper">

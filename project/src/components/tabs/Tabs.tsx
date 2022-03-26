@@ -1,18 +1,16 @@
-import React from 'react';
+import React, {memo} from 'react';
 import {CITIES} from '../../utils/const';
 import {capitalizeFirstLetter} from '../../utils/utils';
-import {useAppDispatch, useAppSelector} from '../../hooks';
+import {useAppDispatch} from '../../hooks';
 import {setCity} from '../../store/action';
-import {CurrentOfferId} from '../../types/offers';
 
 type TabsProps = {
-  onCityChange: (offerId: CurrentOfferId) => void;
+  city: string,
 }
 
-function Tabs({onCityChange}: TabsProps) {
+function Tabs({city}: TabsProps) {
 
   const dispatch = useAppDispatch();
-  const {city} = useAppSelector((state) => state);
 
   const handleClick = (cityName: string) => {
     dispatch(setCity(cityName));
@@ -44,4 +42,4 @@ function Tabs({onCityChange}: TabsProps) {
   );
 }
 
-export default Tabs;
+export default memo(Tabs, (prev, next) => prev.city === next.city);

@@ -1,19 +1,11 @@
-import {CurrentOfferId, Offer} from '../../types/offers';
+import {Offer} from '../../types/offers';
 import OfferCard from '../offerCard/OfferCard';
 
 type SimilarOffersProps = {
   similarOffers: Offer[];
-  handleOfferHover: (offerId: CurrentOfferId) => void;
-  activeOffer: CurrentOfferId;
 }
 
-function SimilarOffers({similarOffers, handleOfferHover, activeOffer}: SimilarOffersProps) {
-
-  const onCardHover = (id: CurrentOfferId) => {
-    if (id !== activeOffer) {
-      handleOfferHover(id);
-    }
-  };
+function SimilarOffers({similarOffers}: SimilarOffersProps) {
 
   return (
     <section className="near-places places">
@@ -25,7 +17,6 @@ function SimilarOffers({similarOffers, handleOfferHover, activeOffer}: SimilarOf
               offer={offer}
               cardMods='near-places__card'
               imageMods='near-places__image-wrapper'
-              onCardHover={onCardHover}
               key={offer.id}
             />))
         }
