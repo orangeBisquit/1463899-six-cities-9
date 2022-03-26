@@ -4,14 +4,17 @@ import {useAppDispatch, useAppSelector} from '../../hooks';
 import {AuthData} from '../../types/auth-data';
 import {loginAction} from '../../store/api-actions';
 import {getLogin} from '../../store/action';
-import {AuthorizationStatus} from '../../utils/const';
 import {useNavigate} from 'react-router-dom';
+import {AuthorizationStatus} from '../../utils/const';
+import {State} from '../../types/store';
+
 
 function Login() {
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
 
-  const {authorizationStatus} = useAppSelector((state) => state);
+  const {authorizationStatus} = useAppSelector((state: State) => state);
+
   const navigate = useNavigate();
 
   const dispatch = useAppDispatch();
@@ -35,6 +38,10 @@ function Login() {
       dispatch(getLogin(loginRef.current.value));
     }
   };
+
+  if(authorizationStatus === AuthorizationStatus.Auth) {
+    navigate('/');
+  }
 
   return (
     <div className="page page--gray page--login">

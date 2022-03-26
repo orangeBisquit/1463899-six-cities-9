@@ -108,6 +108,7 @@ export const toggleFavoriteAction = createAsyncThunk(
     try {
       await api.post<Offer>(`${APIRoute.Favorite}/${id}/${flag}`);
       await store.dispatch(fetchFavoriteOffersAction());
+      store.dispatch(fetchOffersAction());
     } catch (error) {
       errorHandle(error);
     }
