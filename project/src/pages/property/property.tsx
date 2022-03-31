@@ -1,13 +1,13 @@
-import Header from '../../components/header/Header';
+import Header from '../../components/header/header';
 import {useParams} from 'react-router-dom';
-import NotFound from '../notFound/NotFound';
-import SimilarOffers from '../../components/similarOffers/SimilarOffers';
-import Map from '../../components/map/Map';
+import NotFound from '../not-found/not-found';
+import SimilarOffers from '../../components/similar-offers/similar-offers';
+import Map from '../../components/map/map';
 import React, {useEffect} from 'react';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {fetchCommentsAction, fetchNearbyOffersAction, fetchSingleOfferAction} from '../../store/api-actions';
-import PropertyInfo from '../../components/propertyInfo/PropertyInfo';
-import LoadingScreen from '../../components/loadingScreen/LoadingScreen';
+import PropertyInfo from '../../components/property-info/property-info';
+import LoadingScreen from '../../components/loading-screen/loading-screen';
 import {Offer} from '../../types/offers';
 
 function Property() {

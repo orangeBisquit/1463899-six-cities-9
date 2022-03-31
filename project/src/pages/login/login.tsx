@@ -1,4 +1,4 @@
-import Header from '../../components/header/Header';
+import Header from '../../components/header/header';
 import {FormEvent, useRef} from 'react';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {AuthData} from '../../types/auth-data';

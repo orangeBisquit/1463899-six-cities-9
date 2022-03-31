@@ -1,4 +1,4 @@
-import ReviewItem from '../reviewItem/ReviewItem';
+import ReviewItem from '../review-item/review-item';
 import {Review} from '../../types/reviews';
 import {maxReviewItems} from '../../utils/const';
 

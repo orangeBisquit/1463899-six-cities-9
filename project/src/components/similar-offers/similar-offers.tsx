@@ -1,5 +1,5 @@
 import {Offer} from '../../types/offers';
-import OfferCard from '../offerCard/OfferCard';
+import OfferCard from '../offer-card/offer-card';
 
 type SimilarOffersProps = {
   similarOffers: Offer[];

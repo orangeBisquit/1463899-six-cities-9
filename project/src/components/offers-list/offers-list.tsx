@@ -1,6 +1,6 @@
 import {CurrentOfferId, Offer} from '../../types/offers';
-import OfferCard from '../offerCard/OfferCard';
-import React, {useCallback} from 'react';
+import OfferCard from '../offer-card/offer-card';
+import React from 'react';
 import {useAppDispatch} from '../../hooks';
 import {setActiveOfferId} from '../../store/action';
 

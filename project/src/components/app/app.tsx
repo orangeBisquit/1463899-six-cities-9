@@ -1,16 +1,16 @@
 import {Route, Routes} from 'react-router-dom';
-import Login from '../../pages/login/Login';
-import MainPage from '../../pages/mainPage/MainPage';
-import NotFound from '../../pages/notFound/NotFound';
+import Login from '../../pages/login/login';
+import MainPage from '../../pages/main-page/main-page';
+import NotFound from '../../pages/not-found/not-found';
 import {AppRoute} from '../../utils/const';
-import Favorites from '../../pages/favorites/Favorites';
-import PrivateRoute from '../privateRoute/PrivateRoute';
+import Favorites from '../../pages/favorites/favorites';
+import PrivateRoute from '../private-route/private-route';
 import {useAppSelector} from '../../hooks';
-import LoadingScreen from '../loadingScreen/LoadingScreen';
+import LoadingScreen from '../loading-screen/loading-screen';
 import {isCheckedAuth} from '../../utils/utils';
 import browserHistory from '../../browser-history';
-import HistoryRouter from '../history-route/HistoryRouter';
-import Property from '../../pages/property/Property';
+import HistoryRouter from '../history-route/history-router';
+import Property from '../../pages/property/property';
 
 function App(): JSX.Element {
 

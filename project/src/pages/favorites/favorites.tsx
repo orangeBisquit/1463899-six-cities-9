@@ -1,8 +1,8 @@
 import {Offer} from '../../types/offers';
-import Header from '../../components/header/Header';
-import Footer from '../../components/footer/Footer';
-import FavoritesList from '../../components/favoritesList/FavoritesList';
-import FavoritesEmpty from './FavoritesEmpty/FavoritesEmpty';
+import Header from '../../components/header/header';
+import Footer from '../../components/footer/footer';
+import FavoritesList from '../../components/favorites-list/favorites-list';
+import FavoritesEmpty from './favorites-empty/favorites-empty';
 import {useAppSelector} from '../../hooks';
 
 function Favorites() {

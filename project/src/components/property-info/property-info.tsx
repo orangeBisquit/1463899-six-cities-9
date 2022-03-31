@@ -1,6 +1,6 @@
 import {capitalizeFirstLetter, getRatingWidth} from '../../utils/utils';
-import ReviewList from '../reviewList/ReviewList';
-import ReviewForm from '../reviewForm/ReviewForm';
+import ReviewList from '../review-list/review-list';
+import ReviewForm from '../review-form/review-form';
 import React, {useState} from 'react';
 import {Offer} from '../../types/offers';
 import {Review} from '../../types/reviews';

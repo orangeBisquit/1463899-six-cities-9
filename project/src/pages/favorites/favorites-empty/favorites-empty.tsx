@@ -1,4 +1,4 @@
-import Header from '../../../components/header/Header';
+import Header from '../../../components/header/header';
 import {useAppSelector} from '../../../hooks';
 
 function FavoritesEmpty() {

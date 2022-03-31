@@ -2,7 +2,7 @@ import {Link} from 'react-router-dom';
 import {AppRoute, AuthorizationStatus} from '../../utils/const';
 import {logoutAction} from '../../store/api-actions';
 import {useAppDispatch} from '../../hooks';
-import UserLink from '../user/User';
+import UserLink from '../user/user';
 import {memo} from 'react';
 
 type HeaderProps = {

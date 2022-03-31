@@ -1,15 +1,15 @@
 import React, {useCallback} from 'react';
-import Header from '../../components/header/Header';
-import Tabs from '../../components/tabs/Tabs';
-import OffersList from '../../components/offersList/OffersList';
-import MainPageEmpty from './MainPageEmpty/MainPageEmpty';
-import Map from '../../components/map/Map';
+import Header from '../../components/header/header';
+import Tabs from '../../components/tabs/tabs';
+import OffersList from '../../components/offers-list/offers-list';
+import MainPageEmpty from './main-page-empty/main-page-empty';
+import Map from '../../components/map/map';
 import {State} from '../../types/store';
 import {capitalizeFirstLetter} from '../../utils/utils';
 import {getCityOffers} from '../../utils/filter';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {CurrentOfferId} from '../../types/offers';
-import SortOffers from '../../components/sortOffers/SortOffers';
+import SortOffers from '../../components/sort-offers/sort-offers';
 import {sortOffers} from '../../utils/sort';
 import {setActiveOfferId} from '../../store/action';
 
